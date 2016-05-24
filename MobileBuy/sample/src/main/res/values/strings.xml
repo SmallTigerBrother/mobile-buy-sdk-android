@@ -1,12 +1,12 @@
 <resources>
     <!-- Add your shop URL here in the form '<myshop>.myshopify.com' -->
-    <string name="shop_url"></string>
+    <string name="shop_url">stylrplus.myshopify.com</string>
 
     <!-- Add your Shopify API key here -->
-    <string name="shopify_api_key"></string>
+    <string name="shopify_api_key">ef15c5a0282a553438f8946c86e32fa1</string>
 
     <!-- Add your Channel ID here -->
-    <string name="channel_id"></string>
+    <string name="channel_id">52120513</string>
 
     <!-- Application and Activity Names -->
     <string name="app_name">Mobile Buy Sample</string>

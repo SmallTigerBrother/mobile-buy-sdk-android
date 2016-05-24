@@ -59,6 +59,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -71,6 +74,10 @@ import com.shopify.buy.model.ProductVariant;
 import com.shopify.buy.ui.ProductDetailsTheme.Style;
 import com.shopify.buy.utils.ColorBlender;
 import com.shopify.buy.utils.DeviceUtils;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -611,13 +618,28 @@ public class ProductDetailsFragmentView extends RelativeLayout implements Produc
         }
 
         // Product description
-        TextView textViewDescription = (TextView) findViewById(R.id.product_description);
-        textViewDescription.setText(Html.fromHtml(product.getBodyHtml()), TextView.BufferType.SPANNABLE);
-        textViewDescription.setTextColor(theme.getProductDescriptionColor(res));
+//        TextView textViewDescription = (TextView) findViewById(R.id.product_description);
+//        textViewDescription.setText(Html.fromHtml(product.getBodyHtml()), TextView.BufferType.SPANNABLE);
+//        textViewDescription.setTextColor(theme.getProductDescriptionColor(res));
+//
+//        // Make the links clickable in the description
+//        // http://stackoverflow.com/questions/2734270/how-do-i-make-links-in-a-textview-clickable
+//        textViewDescription.setMovementMethod(LinkMovementMethod.getInstance());
 
-        // Make the links clickable in the description
-        // http://stackoverflow.com/questions/2734270/how-do-i-make-links-in-a-textview-clickable
-        textViewDescription.setMovementMethod(LinkMovementMethod.getInstance());
+        WebView webView =  (WebView)findViewById(R.id.product_description);
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setBlockNetworkImage(false);
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+//        webView.loadDataWithBaseURL("https://",product.getBodyHtml(),"text/html; charset=utf-8","utf-8","");
+        Document document = Jsoup.parse(product.getBodyHtml());
+        Elements elements = document.getElementsByTag("img");
+        if(null != elements && elements.size() > 0)
+        {
+            elements.get(0).attr("src", "https:" + elements.get(0).attr("src"));
+        }
+        webView.loadData(document.toString(),"text/html; charset=utf-8","utf-8");
     }
 
     private void setCurrentImage(Image image) {

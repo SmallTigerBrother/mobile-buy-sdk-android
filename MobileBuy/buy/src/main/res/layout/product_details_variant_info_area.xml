@@ -141,14 +141,23 @@
             android:id="@+id/divider2"
             style="@style/Divider" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/product_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/spacing_16dp"
             android:paddingRight="@dimen/spacing_16dp"
             android:paddingTop="@dimen/spacing_12dp"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_small" /> -->
+
+        <WebView
+            android:id="@+id/product_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/spacing_16dp"
+            android:paddingRight="@dimen/spacing_16dp"
+            android:paddingTop="@dimen/spacing_12dp" />
+
     </LinearLayout>
 
 </LinearLayout>
